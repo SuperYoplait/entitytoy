@@ -1,0 +1,13 @@
+package com.toy.entitytoy;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class EntitytoyApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(EntitytoyApplication.class, args);
+	}
+
+}
