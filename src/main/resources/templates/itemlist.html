@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div th:each="item : ${itemlist}">
+        <div class="card">
+            <!-- 제품 이미지-->
+            
+            <div class="card-body p-4">
+                <div class="text-center">
+                    <!-- 제품 명-->
+                    <h5 class="fw-bolder" th:text="${item.getName()}">상품명</h5>
+                    <!-- 제품 가격-->
+                    <p th:text="|${item.getPrice()} 원|">가격</p>
+                </div>
+            </div>
+            <!-- Product actions-->
+            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <div class="text-center"><a class="btn btn-outline-dark mt-auto"
+                    th:href="@{/item-insert/{id}(id=${item.getId()})}">장바구니</a></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
