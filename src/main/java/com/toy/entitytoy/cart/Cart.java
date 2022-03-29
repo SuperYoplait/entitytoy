@@ -28,7 +28,7 @@ public class Cart {
 
     private Long sum_price;
 
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
+    @OneToMany
     private List<Cart_item> cart_item;
 
 }

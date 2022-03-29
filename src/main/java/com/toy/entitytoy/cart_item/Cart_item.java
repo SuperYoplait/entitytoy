@@ -32,8 +32,8 @@ public class Cart_item {
     @JoinColumn(name = "item_id")
     private Item item;
 
-    @ManyToOne
-    @JoinColumn(name = "cart_id")
-    private Cart cart;
+    // @ManyToOne
+    // @JoinColumn(name = "cart_id")
+    // private Long cart_id;
 
 }
