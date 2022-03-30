@@ -1,6 +1,9 @@
 package com.toy.entitytoy.cart;
 
-import java.util.Optional;
+import java.util.List;
+
+import com.toy.entitytoy.cartitem.CartItem;
+import com.toy.entitytoy.cartitem.CartItemRepository;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,18 +16,20 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/cart")
 @RequiredArgsConstructor
 public class CartController {
-    private final CartRepository cartRepository;
+    private final CartItemRepository cartItemRepository;
 
     private final Long id = 3080L;
     @GetMapping("/my-cart")
     public String my_cart(Model model){
-        Optional<Cart> myCart = cartRepository.findById(id);
-        Cart mycart_get = myCart.get();
-        if(mycart_get.getSum_price() == 0){
+        List<CartItem> select_cartId = cartItemRepository.findByCartId(id);
+        
+        
+        if(select_cartId.isEmpty()){
             System.out.println("비었음");
         }else{
-            System.out.println("\n아이템 목록 : "+mycart_get.getCart_item());
-            System.out.println("\n전체 상품 가격 : " + mycart_get.getSum_price());
+            for(CartItem item : select_cartId)
+                System.out.println("아이템 목록 : "+ item);
+            //System.out.println("\n전체 상품 가격 : " + );
         }
         return "my-cart";
     }

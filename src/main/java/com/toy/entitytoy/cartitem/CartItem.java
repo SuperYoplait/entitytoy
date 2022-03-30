@@ -1,4 +1,4 @@
-package com.toy.entitytoy.cart_item;
+package com.toy.entitytoy.cartitem;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,22 +18,21 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name = "CART_ITEM")
+@Table(name = "CARTITEM")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Cart_item {
+public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private Long item_count;
+    private Long cnt;
 
     @OneToOne //상품에 대한 1:1 맵핑
     @JoinColumn(name = "item_id")
     private Item item;
 
-    // @ManyToOne
-    // @JoinColumn(name = "cart_id")
-    // private Long cart_id;
+    @ManyToOne
+    private Cart cart;
 
 }

@@ -5,8 +5,9 @@ import java.util.Optional;
 
 import com.toy.entitytoy.cart.Cart;
 import com.toy.entitytoy.cart.CartRepository;
-import com.toy.entitytoy.cart_item.Cart_item;
-import com.toy.entitytoy.cart_item.Cart_itemRepository;
+import com.toy.entitytoy.cartitem.CartItem;
+import com.toy.entitytoy.cartitem.CartItemForm;
+import com.toy.entitytoy.cartitem.CartItemRepository;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 public class ItemController {
     private final ItemRepository itemRepository;
     private final CartRepository cartRepository;
-    private final Cart_itemRepository cart_itemRepository;
+    private final CartItemRepository cartItemRepository;
 
     private final Long userid = 3080L;
 
@@ -36,18 +37,31 @@ public class ItemController {
 
     @GetMapping("/item-insert/{itemId}")
     public String item_insert(Model model, @PathVariable("itemId") Long id) {
-        Optional<Cart> select_cart = cartRepository.findById(userid);
-        Optional<Item> select_item = itemRepository.findById(id);
-        Cart insert_cart = select_cart.get();
-        Item insert_item = select_item.get();
-
-//        if(select_cart.isPresent()){
-
-//        }
+        Long i_count = 1L;
+        List<CartItem> select_cart = cartItemRepository.findByCartId(userid); //카트 아이템
+        Optional<Item> select_item = itemRepository.findById(id); //아이템
+        Optional<Cart> select_user = cartRepository.findById(userid);
+        Cart user_cart  = select_user.get(); //카트에 담은 합산 값 계산 하기 위함
+        Item insert_item = select_item.get();// 아이템 밀어넣기 위함
+        CartItem saveItem = new CartItem();
         
 
-        System.out.println("\n\n"+insert_item);
-        System.out.println("\n\n"+insert_cart);
+        if(user_cart.getId() == null || insert_item.getId() == null){
+            return "item-error";
+        }
+
+        if(saveItem.getId() == null){
+            saveItem.setId(null);
+            saveItem.setCnt(i_count);
+            saveItem.setCart(user_cart);
+            saveItem.setItem(insert_item);
+        }
+        
+
+        System.out.println("\n\n"+saveItem);
+        cartItemRepository.save(saveItem);
+
+
         
         //Cart_Item newCart_item = new Cart_Item(3000L, 1L, insert_item, call_cart);
         //System.out.println("\n\n"+newCart_item);

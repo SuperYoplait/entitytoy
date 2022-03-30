@@ -1,16 +1,11 @@
 package com.toy.entitytoy.cart;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.toy.entitytoy.cart_item.Cart_item;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,8 +22,4 @@ public class Cart {
     private Long id;
 
     private Long sum_price;
-
-    @OneToMany
-    private List<Cart_item> cart_item;
-
 }
